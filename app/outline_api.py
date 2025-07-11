@@ -15,10 +15,7 @@ class OutlineServer:
         from urllib.parse import urlparse, parse_qs
         parsed = urlparse(access_url)
         self.token = parse_qs(parsed.query)['token'][0]
-        print(parsed)
-        print(self.token)
-        print(*self.token)
-        self.base_url = f"{parsed.scheme}://{parsed.hostname}:{parsed.port}/access-keys"
+        self.base_url = f"{parsed.scheme}://{parsed.hostname}:{parsed.port}/{self.token}/access-keys"
         self.headers = {'Authorization': f"Bearer {self.token}"}
         
         # Настроим сессию с кастомным SSL-адаптером
