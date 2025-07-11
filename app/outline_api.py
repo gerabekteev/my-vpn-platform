@@ -9,6 +9,11 @@ class OutlineServer:
         self.headers = {'Authorization': f'Bearer {self.token}'}
 
     def create_key(self, name: str):
-        r = requests.post(self.base_url, headers=self.headers, json={'name': name})
+        r = requests.post(
+            self.base_url,
+            headers=self.headers,
+            json={'name': name},
+            verify="/root/my-vpn-platform/outline.crt"
+        )
         r.raise_for_status()
         return r.json()
