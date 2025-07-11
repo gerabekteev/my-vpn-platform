@@ -19,7 +19,8 @@ JWT_SECRET = os.getenv("JWT_SECRET_KEY")
 JWT_ALGO = os.getenv("JWT_ALGORITHM")
 JWT_EXP_HOURS = int(os.getenv("JWT_EXPIRE_HOURS", "24"))
 SERVER_CONFIG = {k.replace("SERVER_", ""): v for k, v in os.environ.items() if k.startswith("SERVER_")}
-
+print(SERVER_CONFIG)
+print(*SERVER_CONFIG)
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine)
 models.Base.metadata.create_all(bind=engine)
@@ -71,6 +72,7 @@ def login(user: UserCreate, db: Session = Depends(get_db)):
 @app.post("/get-key")
 def get_key(current_user_id: int = 1, db: Session = Depends(get_db)):
     server_id, access_url = sorted(SERVER_CONFIG.items(), key=lambda x: x[0])[0]  # заглушка
+    print(f"access_url: {access_url}")
     outline = OutlineServer(access_url)
     key = outline.create_key(f"user-{current_user_id}")
 
