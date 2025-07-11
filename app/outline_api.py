@@ -1,4 +1,4 @@
-import httpx
+import requests
 from urllib.parse import urlparse, parse_qs
 
 class OutlineServer:
@@ -8,8 +8,7 @@ class OutlineServer:
         self.token = parse_qs(parsed.query)['token'][0]
         self.headers = {'Authorization': f'Bearer {self.token}'}
 
-    async def create_key(self, name: str):
-        async with httpx.AsyncClient() as client:
-            r = await client.post(self.base_url, headers=self.headers, json={'name': name})
-            r.raise_for_status()
-            return r.json()
+    def create_key(self, name: str):
+        r = requests.post(self.base_url, headers=self.headers, json={'name': name})
+        r.raise_for_status()
+        return r.json()
