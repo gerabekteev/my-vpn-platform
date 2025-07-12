@@ -19,7 +19,8 @@ class Subscription(Base):
     server_id = Column(String, nullable=False)
     outline_key_id = Column(String, nullable=False)
     access_url = Column(String, nullable=False)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+    plan = Column(Integer, default=0)  # уровень подписки
+    last_login = Column(DateTime, nullable=True)
     expires_at = Column(DateTime, nullable=False)
 
     user = relationship('User', back_populates='subscriptions')
