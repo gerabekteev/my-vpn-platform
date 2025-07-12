@@ -30,7 +30,6 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 app = FastAPI()
 
 # Pydantic models
-template:
 class UserCreate(BaseModel):
     email: EmailStr
     password: str
